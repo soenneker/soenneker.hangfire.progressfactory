@@ -8,5 +8,5 @@
 ## Installation
 
 ```
-Install-Package Soenneker.Hangfire.ProgressFactory
+dotnet add package Soenneker.Hangfire.ProgressFactory
 ```
