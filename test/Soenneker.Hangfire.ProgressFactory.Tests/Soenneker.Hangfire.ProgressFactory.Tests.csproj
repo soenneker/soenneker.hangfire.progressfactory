@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\src\Soenneker.Hangfire.ProgressFactory.csproj" />
+        <ProjectReference Include="..\..\src\Soenneker.Hangfire.ProgressFactory.csproj" />
     </ItemGroup>
 
 </Project>
