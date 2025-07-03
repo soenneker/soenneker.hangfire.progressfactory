@@ -5,7 +5,7 @@ using Soenneker.Hangfire.ProgressFactory.Abstract;
 namespace Soenneker.Hangfire.ProgressFactory;
 
 ///<inheritdoc cref="IProgressFactory"/>
-public class ProgressFactory : IProgressFactory
+public sealed class ProgressFactory : IProgressFactory
 {
     private readonly IProgressBarFactory _factory;
     private IProgressBar? _progressBar;
