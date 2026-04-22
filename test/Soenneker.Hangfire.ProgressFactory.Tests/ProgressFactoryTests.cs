@@ -1,20 +1,19 @@
 using Soenneker.Hangfire.ProgressFactory.Abstract;
-using Soenneker.Tests.FixturedUnit;
-using Xunit;
+using Soenneker.Tests.HostedUnit;
 
 namespace Soenneker.Hangfire.ProgressFactory.Tests;
 
-[Collection("Collection")]
-public class ProgressFactoryTests : FixturedUnitTest
+[ClassDataSource<Host>(Shared = SharedType.PerTestSession)]
+public class ProgressFactoryTests : HostedUnitTest
 {
     private readonly IProgressFactory _util;
 
-    public ProgressFactoryTests(Fixture fixture, ITestOutputHelper output) : base(fixture, output)
+    public ProgressFactoryTests(Host host) : base(host)
     {
         _util = Resolve<IProgressFactory>(true);
     }
 
-    [Fact]
+    [Test]
     public void Default()
     {
     }
