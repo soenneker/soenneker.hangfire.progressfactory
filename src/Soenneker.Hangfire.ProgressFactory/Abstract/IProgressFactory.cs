@@ -5,7 +5,14 @@
 /// </summary>
 public interface IProgressFactory
 {
+    /// <summary>
+    /// Initializes the instance.
+    /// </summary>
+    /// <param name="count">The count.</param>
     void Init(int count);
 
+    /// <summary>
+    /// Executes the increment operation.
+    /// </summary>
     void Increment();
 }
