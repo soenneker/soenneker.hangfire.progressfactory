@@ -40,6 +40,5 @@
         <None Include="..\..\LICENSE" Pack="true" PackagePath="\" />
         <None Include="..\..\icon.png" Pack="true" PackagePath="\" />
         <PackageReference Include="Hangfire.Console.Extensions.Serilog" Version="2.1.0" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    </ItemGroup>
+</ItemGroup>
 </Project>
