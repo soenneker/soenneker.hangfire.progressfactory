@@ -8,11 +8,11 @@ public interface IProgressFactory
     /// <summary>
     /// Initializes the instance.
     /// </summary>
-    /// <param name="count">The count.</param>
+    /// <param name="count">Number of items or repetitions to use.</param>
     void Init(int count);
 
     /// <summary>
-    /// Executes the increment operation.
+    /// Increment on the Progress Factory.
     /// </summary>
     void Increment();
 }
