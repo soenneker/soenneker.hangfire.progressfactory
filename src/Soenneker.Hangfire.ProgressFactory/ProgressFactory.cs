@@ -1,17 +1,15 @@
-﻿using Hangfire.Console.Extensions;
+using System;
+using System.Threading;
+using Hangfire.Console.Extensions;
 using Hangfire.Console.Progress;
 using Soenneker.Hangfire.ProgressFactory.Abstract;
 
 namespace Soenneker.Hangfire.ProgressFactory;
 
-/// <inheritdoc cref="IProgressFactory"/>
 public sealed class ProgressFactory : IProgressFactory
 {
     private readonly IProgressBarFactory _factory;
-    private IProgressBar? _progressBar;
-
-    private double _progressCount;
-    private double _increment;
+    private readonly AsyncLocal<ProgressState?> _state = new();
 
     public ProgressFactory(IProgressBarFactory factory)
     {
@@ -20,21 +18,31 @@ public sealed class ProgressFactory : IProgressFactory
 
     public void Init(int count)
     {
-        _increment = (double) 100 / count;
-        _progressBar = _factory.Create();
-        _progressCount = 0;
+        IProgressBar progressBar = _factory.Create();
+        _state.Value = new ProgressState(progressBar, count > 0 ? 100d / count : 100d);
+
+        if (count <= 0)
+            progressBar.SetValue(100);
     }
 
     public void Increment()
     {
-        _progressCount += _increment;
+        ProgressState state = _state.Value ?? throw new InvalidOperationException("Initialize the progress factory before incrementing it.");
 
-        if (_progressCount >= 100)
-            return;
+        lock (state)
+        {
+            if (state.Progress >= 100)
+                return;
 
-        if (_progressCount + _increment > 100)
-            _progressBar!.SetValue(100);
-        else
-            _progressBar!.SetValue(_progressCount);
+            state.Progress = Math.Min(100, state.Progress + state.Increment);
+            state.ProgressBar.SetValue(state.Progress);
+        }
+    }
+
+    private sealed class ProgressState(IProgressBar progressBar, double increment)
+    {
+        public IProgressBar ProgressBar { get; } = progressBar;
+        public double Increment { get; } = increment;
+        public double Progress { get; set; }
     }
 }

@@ -6,12 +6,12 @@ using Soenneker.Hangfire.ProgressFactory.Abstract;
 namespace Soenneker.Hangfire.ProgressFactory.Registrars;
 
 /// <summary>
-/// Provides additional functionality around the Hangfire progress tools
+/// Registers item-based Hangfire progress tracking.
 /// </summary>
 public static class ProgressFactoryRegistrar
 {
     /// <summary>
-    /// Adds <see cref="IProgressFactory"/> as a singleton service. <para/>
+    /// Adds <see cref="IProgressFactory"/> as a singleton service with execution-local job state.
     /// </summary>
     /// <param name="services">Service collection that receives the registration.</param>
     /// <returns>The same service collection, so additional registrations can be chained.</returns>

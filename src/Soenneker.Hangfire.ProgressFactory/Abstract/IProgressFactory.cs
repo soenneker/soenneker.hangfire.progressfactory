@@ -1,18 +1,18 @@
 ﻿namespace Soenneker.Hangfire.ProgressFactory.Abstract;
 
 /// <summary>
-/// Provides additional functionality around the Hangfire progress tools
+/// Tracks item-based progress for the current Hangfire job execution.
 /// </summary>
 public interface IProgressFactory
 {
     /// <summary>
-    /// Initializes the instance.
+    /// Creates a progress bar and initializes its increment from the expected item count.
     /// </summary>
     /// <param name="count">Number of items or repetitions to use.</param>
     void Init(int count);
 
     /// <summary>
-    /// Increment on the Progress Factory.
+    /// Advances the current job's progress by one item, capped at 100 percent.
     /// </summary>
     void Increment();
 }
